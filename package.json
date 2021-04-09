@@ -1,0 +1,23 @@
+{
+  "name": "httpecho",
+  "version": "1.0.0",
+  "description": "Http Echo Service",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jsu216/httpecho.git"
+  },
+  "author": "John Su",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/jsu216/httpecho/issues"
+  },
+  "homepage": "https://github.com/jsu216/httpecho#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-xml-bodyparser": "^0.3.0"
+  }
+}
