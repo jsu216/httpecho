@@ -30,7 +30,7 @@ function getBody (req) {
 app.post("/echobody", (req, res) => {
   var contype = req.headers['content-type'];
   console.log("Content-type:", contype);
-  console.log("Raw req:", req);
+  // console.log("Raw req:", req);
   res.send(getBody(req));
   res.end();
 });
