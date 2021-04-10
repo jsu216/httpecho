@@ -1,12 +1,21 @@
 const express = require("express");
-var xmlparser = require('express-xml-bodyparser');
-
+const logger = require("./logging");
+const xmlparser = require("express-xml-bodyparser");
 const app = express();
 
 app.use(express.text());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(xmlparser());
+
+app.use((req, res, next) => {
+  logger.debug("--------------------------------------");
+  logger.debug("Request Protocal:", req.protocol);
+  logger.debug("Request Url:", req.url);
+  logger.debug("Request Query:", req.query);
+  logger.debug("Request Headers:", req.headers);
+  next();
+});
 
 app.get("/*", (req, res) => {
   res.json({
@@ -17,9 +26,9 @@ app.get("/*", (req, res) => {
   });
 });
 
-function getBody (req) {
-  var body;
-  if (req.is('*/xml')) {
+function getBody(req) {
+  let body;
+  if (req.is("*/xml")) {
     body = req.rawBody;
   } else {
     body = req.body;
@@ -28,11 +37,9 @@ function getBody (req) {
 }
 
 app.post("/echobody", (req, res) => {
-  var contype = req.headers['content-type'];
-  console.log("Content-type:", contype);
-  // console.log("Raw req:", req);
-  res.send(getBody(req));
-  res.end();
+  let body = getBody(req);
+  logger.debug("Request Body:", body);
+  res.send(body);
 });
 
 app.post("/*", (req, res) => {
@@ -46,5 +53,5 @@ app.post("/*", (req, res) => {
 });
 
 app.listen(8000, () => {
-  console.log("Http echo app listening on port 8000!");
+  logger.info("Http echo app started at port:", 8000);
 });
